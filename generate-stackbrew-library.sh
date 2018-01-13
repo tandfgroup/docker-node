@@ -1,19 +1,26 @@
 #!/bin/bash
 set -e
+. functions.sh
 
 hash git 2>/dev/null || { echo >&2 "git not found, exiting."; }
 
+# Used dynamically: print "$array_" $1
+# shellcheck disable=SC2034
 array_4='4 argon';
+# shellcheck disable=SC2034
 array_6='6 boron';
-array_7='7 latest';
+# shellcheck disable=SC2034
+array_8='8 carbon';
+# shellcheck disable=SC2034
+array_9='9 latest';
 
-cd "$(cd ${0%/*} && pwd -P)";
+cd "$(cd "${0%/*}" && pwd -P)";
 
-self="$(basename "$BASH_SOURCE")"
+self="$(basename "${BASH_SOURCE[0]}")"
 
 versions=( */ )
 versions=( "${versions[@]%/}" )
-url='https://github.com/tandfgroup/docker-node'
+url='https://github.com/nodejs/docker-node'
 
 # sort version numbers with highest first
 IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -r) ); unset IFS
@@ -25,7 +32,7 @@ fileCommit() {
 
 echo "# this file is generated via ${url}/blob/$(fileCommit "$self")/$self"
 echo
-echo "Maintainers: The T&F Platform Engineering Team <${url}> (@tandfgroup/platform)"
+echo "Maintainers: The Node.js Docker Team <${url}> (@nodejs)"
 echo "GitRepo: ${url}.git"
 echo
 
@@ -40,30 +47,41 @@ for version in "${versions[@]}"; do
   # Skip "docs" and other non-docker directories
   [ -f "$version/Dockerfile" ] || continue
 
-  eval stub="$(echo "$version" | awk -F. '{ print "$array_" $1 "_" $2 }')";
+  eval stub="$(echo "$version" | awk -F. '{ print "$array_" $1 }')";
   commit="$(fileCommit "$version")"
+  fullVersion="$(grep -m1 'ENV NODE_VERSION ' "$version/Dockerfile" | cut -d' ' -f3)"
+  minorVersion="$(echo "$fullVersion" | cut -d'.' -f2)"
 
-  versionAliases=( $version ${stub} )
+  versionAliases=( $fullVersion $version.$minorVersion ${stub} )
+  # Get supported architectures for a specific version. See details in function.sh
+  supportedArches=( $(get_supported_arches "$version" "default") )
 
   echo "Tags: $(join ', ' "${versionAliases[@]}")"
+  echo "Architectures: $(join ', ' "${supportedArches[@]}")"
   echo "GitCommit: ${commit}"
   echo "Directory: ${version}"
   echo
 
-  variants=$(echo $version/*/ | xargs -n1 basename)
+  # Get supported variants according to the target architecture.
+  # See details in function.sh
+  variants=$(get_variants | tr ' ' '\n')
   for variant in $variants; do
-    # Skip non-docker directories
-    [ -f "$version/$variant/Dockerfile" ] || continue
+  # Skip non-docker directories
+  [ -f "$version/$variant/Dockerfile" ] || continue
 
-    commit="$(fileCommit "$version/$variant")"
+  commit="$(fileCommit "$version/$variant")"
 
-    slash='/'
-    variantAliases=( "${versionAliases[@]/%/-${variant//$slash/-}}" )
-    variantAliases=( "${variantAliases[@]//latest-/}" )
+  slash='/'
+  variantAliases=( "${versionAliases[@]/%/-${variant//$slash/-}}" )
+  variantAliases=( "${variantAliases[@]//latest-/}" )
+  # Get supported architectures for a specific version and variant.
+  # See details in function.sh
+  supportedArches=( $(get_supported_arches "$version" "$variant") )
 
-    echo "Tags: $(join ', ' "${variantAliases[@]}")"
-    echo "GitCommit: ${commit}"
-    echo "Directory: ${version}/${variant}"
-    echo
+  echo "Tags: $(join ', ' "${variantAliases[@]}")"
+  echo "Architectures: $(join ', ' "${supportedArches[@]}")"
+  echo "GitCommit: ${commit}"
+  echo "Directory: ${version}/${variant}"
+  echo
   done
 done

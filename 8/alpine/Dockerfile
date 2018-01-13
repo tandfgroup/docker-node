@@ -1,12 +1,20 @@
-FROM node:7
+FROM node:8-alpine
 
-RUN apt-get update \
-  && apt-get install --no-install-recommends --no-install-suggests -y \
-    curl \
+RUN apk update \
+  && apk add --no-cache --update \
+    bash \
+    build-base \
+    clang \
     git \
-    openssh-client \
-    openssh-server \
-  && rm -rf /var/lib/apt/lists/* \
+    jq \
+    ncurses-dev \
+    patch \
+    perl \
+    ruby \
+    ruby-irb \
+    tar \
+    zlib \
+    zlib-dev \
   && npm i -g \
     bower \
     gulp \
