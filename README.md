@@ -163,7 +163,9 @@ upgrade your Docker daemon.
 [License information](https://github.com/nodejs/node/blob/master/LICENSE) for
 the software contained in this image. [License
 information](https://github.com/nodejs/docker-node/blob/master/LICENSE) for the
-Node.js Docker project.
+Node.js Docker project. [License
+information](LICENSE) for the
+[`tandfgroup/docker-node`](https://hub.docker.com/r/tandfgroup/docker-node/) project.
 
 > The Node.js Docker Image is governed by the Docker Working Group. See
 [GOVERNANCE.md](https://github.com/nodejs/docker-node/blob/master/GOVERNANCE.md)
