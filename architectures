@@ -1,0 +1,8 @@
+bashbrew-arch   variants
+amd64     default,alpine
+ppc64le default,alpine
+s390x default,alpine
+arm64v8 default,alpine
+arm32v7 default
+arm32v6 alpine
+i386 default,alpine

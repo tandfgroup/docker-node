@@ -1,5 +1,7 @@
 FROM node:6
 
+ENV NODE_VERSION 6.12.3
+
 RUN apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -y \
     curl \

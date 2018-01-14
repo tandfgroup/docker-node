@@ -1,5 +1,7 @@
 FROM node:6-alpine
 
+ENV NODE_VERSION 6.12.3
+
 RUN apk update \
   && apk add --no-cache --update \
     bash \

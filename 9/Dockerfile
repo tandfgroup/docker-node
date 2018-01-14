@@ -1,5 +1,7 @@
 FROM node:9
 
+ENV NODE_VERSION 9.4.0
+
 RUN apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -y \
     curl \
