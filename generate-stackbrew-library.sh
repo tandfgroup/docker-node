@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -e
 . functions.sh
 
@@ -26,7 +27,7 @@ url='https://github.com/nodejs/docker-node'
 IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -r) ); unset IFS
 
 # get the most recent commit which modified any of "$@"
-fileCommit() {
+fileCommit () {
   git log -1 --format='format:%H' HEAD -- "$@"
 }
 
@@ -37,7 +38,7 @@ echo "GitRepo: ${url}.git"
 echo
 
 # prints "$2$1$3$1...$N"
-join() {
+join () {
   local sep="$1"; shift
   local out; printf -v out "${sep//%/%%}%s" "$@"
   echo "${out#$sep}"
@@ -66,22 +67,22 @@ for version in "${versions[@]}"; do
   # See details in function.sh
   variants=$(get_variants | tr ' ' '\n')
   for variant in $variants; do
-  # Skip non-docker directories
-  [ -f "$version/$variant/Dockerfile" ] || continue
+    # Skip non-docker directories
+    [ -f "$version/$variant/Dockerfile" ] || continue
 
-  commit="$(fileCommit "$version/$variant")"
+    commit="$(fileCommit "$version/$variant")"
 
-  slash='/'
-  variantAliases=( "${versionAliases[@]/%/-${variant//$slash/-}}" )
-  variantAliases=( "${variantAliases[@]//latest-/}" )
-  # Get supported architectures for a specific version and variant.
-  # See details in function.sh
-  supportedArches=( $(get_supported_arches "$version" "$variant") )
+    slash='/'
+    variantAliases=( "${versionAliases[@]/%/-${variant//$slash/-}}" )
+    variantAliases=( "${variantAliases[@]//latest-/}" )
+    # Get supported architectures for a specific version and variant.
+    # See details in function.sh
+    supportedArches=( $(get_supported_arches "$version" "$variant") )
 
-  echo "Tags: $(join ', ' "${variantAliases[@]}")"
-  echo "Architectures: $(join ', ' "${supportedArches[@]}")"
-  echo "GitCommit: ${commit}"
-  echo "Directory: ${version}/${variant}"
-  echo
+    echo "Tags: $(join ', ' "${variantAliases[@]}")"
+    echo "Architectures: $(join ', ' "${supportedArches[@]}")"
+    echo "GitCommit: ${commit}"
+    echo "Directory: ${version}/${variant}"
+    echo
   done
 done
