@@ -1,26 +1,24 @@
 sudo: required
-
 services:
     - docker
-
+notifications:
+  email: false
+branches:
+  only:
+    - master
+    - /^greenkeeper.*$/
 script:
     - if [ "true" = "${SHELLCHECK-}" ]; then shellcheck *.sh ; fi
     - if [ -n "${NODE_VERSION-}" ]; then ./test-build.sh $NODE_VERSION ; fi
-    - if [ "true" = "${DOCTOCCHECK-}" ]; then
-         nvm install node &&
-         npm i -g doctoc  &&
-         cp README.md README.md.tmp &&
-         doctoc --title='## Table of Contents' --github README.md &&
-         diff -q README.md README.md.tmp;
-      fi
-
+after_success:
+  - nvm install node
+  - npm i -g travis-deploy-once semantic-release
+  - travis-deploy-once "semantic-release --verify-conditions '@semantic-release/github' --get-last-release '@semantic-release/github' --publish '@semantic-release/github'"
 env:
-    - DOCTOCCHECK: true
     - NODE_VERSION: '4'
     - NODE_VERSION: '6'
     - NODE_VERSION: '8'
     - NODE_VERSION: '9'
-
 matrix:
   include:
     env: SHELLCHECK=true
