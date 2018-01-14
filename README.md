@@ -1,6 +1,6 @@
 # Unofficial Node.js Docker Images
 
-[![GitHub release](https://img.shields.io/github/release/tandfgroup/docker-node.svg)](https://github.com/tandfgroup/docker-node/releases) [![GitHub Release Date](https://img.shields.io/github/release-date/tandfgroup/docker-node.svg)](https://github.com/tandfgroup/docker-node/releases)
+[![GitHub release](https://img.shields.io/github/release/tandfgroup/docker-node.svg)](https://github.com/tandfgroup/docker-node/releases) [![GitHub Release Date](https://img.shields.io/github/release-date/tandfgroup/docker-node.svg)](https://github.com/tandfgroup/docker-node/releases) [![Travis](https://img.shields.io/travis/tandfgroup/docker-node.svg)](https://travis-ci.org/tandfgroup/docker-node)
 
 [![Docker Stars](https://img.shields.io/docker/stars/tandfgroup/docker-node.svg)](https://hub.docker.com/r/tandfgroup/docker-node/) [![Docker Pulls](https://img.shields.io/docker/pulls/tandfgroup/docker-node.svg)](https://hub.docker.com/r/tandfgroup/docker-node/) [![Docker Automated build](https://img.shields.io/docker/automated/tandfgroup/docker-node.svg)](https://hub.docker.com/r/tandfgroup/docker-node/builds/) [![Docker Build Status](https://img.shields.io/docker/build/tandfgroup/docker-node.svg)](https://hub.docker.com/r/tandfgroup/docker-node/builds/)
 
