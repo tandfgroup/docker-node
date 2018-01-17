@@ -1,6 +1,6 @@
 sudo: required
 services:
-    - docker
+  - docker
 notifications:
   email: false
 branches:
@@ -8,8 +8,8 @@ branches:
     - master
     - /^greenkeeper.*$/
 script:
-    - if [ "true" = "${SHELLCHECK-}" ]; then shellcheck *.sh ; fi
-    - if [ -n "${NODE_VERSION-}" ]; then ./test-build.sh $NODE_VERSION ; fi
+  - if [ "true" = "${SHELLCHECK-}" ]; then shellcheck *.sh ; fi
+  - if [ -n "${NODE_VERSION-}" ]; then ./test-build.sh $NODE_VERSION ; fi
 after_success:
   - nvm install node
   - npm i -g travis-deploy-once semantic-release

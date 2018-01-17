@@ -13,7 +13,7 @@ RUN apt-get update \
     bower \
     gulp \
     karma-cli \
-    node-sass \
+    # node-sass \
     pm2 \
     protractor \
     typescript \
