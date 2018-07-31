@@ -63,7 +63,7 @@ complete `Dockerfile`. In such cases, you can run a Node.js script by using the
 
 ```console
 $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w
-/usr/src/app tandfgroup/node:4 node your-daemon-or-script.js
+/usr/src/app tandfgroup/node:8 node your-daemon-or-script.js
 ```
 
 ## Verbosity
