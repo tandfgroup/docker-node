@@ -10,14 +10,13 @@ RUN apt-get update \
     openssh-server \
   && rm -rf /var/lib/apt/lists/* \
   && npm i -g \
-    bower \
+    @angular/cli \
     gulp \
     karma-cli \
-    # node-sass \
     pm2 \
     protractor \
+    semantic-release \
     typescript \
-    typings \
     webpack \
     webpack-dev-server \
   && npm cache clean -g -f \
