@@ -1,6 +1,6 @@
 FROM node:9-alpine
 
-ENV NODE_VERSION 9.4.0
+ENV NODE_VERSION 9.11.2
 
 RUN apk update \
   && apk add --no-cache --update \
