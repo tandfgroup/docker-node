@@ -14,6 +14,7 @@ after_success:
   - nvm install node
   - npm i -g travis-deploy-once semantic-release
   - travis-deploy-once "semantic-release --verify-conditions '@semantic-release/github' --get-last-release '@semantic-release/github' --publish '@semantic-release/github'"
+  - "curl -H \"Content-Type: application/json\" --data '{\"build\": true}' -X POST https://registry.hub.docker.com/u/tandfgroup/docker-node/trigger/ea26d3fe-dc41-4e84-9f24-c5408beccb93/"
 env:
   - NODE_VERSION=4
   - NODE_VERSION=6
