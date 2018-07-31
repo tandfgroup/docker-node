@@ -20,12 +20,12 @@ env:
   - NODE_VERSION: '8'
   - NODE_VERSION: '9'
   - NODE_VERSION: '10'
-matrix:
-  include:
-    env: SHELLCHECK=true
-    addons:
-      apt:
-        sources:
-          - debian-sid
-        packages:
-          - shellcheck
+# matrix:
+#   include:
+#     env: SHELLCHECK=true
+#     addons:
+#       apt:
+#         sources:
+#           - debian-sid
+#         packages:
+#           - shellcheck
