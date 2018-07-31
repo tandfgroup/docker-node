@@ -15,11 +15,11 @@ after_success:
   - npm i -g travis-deploy-once semantic-release
   - travis-deploy-once "semantic-release --verify-conditions '@semantic-release/github' --get-last-release '@semantic-release/github' --publish '@semantic-release/github'"
 env:
-  - NODE_VERSION: '4'
-  - NODE_VERSION: '6'
-  - NODE_VERSION: '8'
-  - NODE_VERSION: '9'
-  - NODE_VERSION: '10'
+  - NODE_VERSION=4
+  - NODE_VERSION=6
+  - NODE_VERSION=8
+  - NODE_VERSION=9
+  - NODE_VERSION=10
 # matrix:
 #   include:
 #     env: SHELLCHECK=true
